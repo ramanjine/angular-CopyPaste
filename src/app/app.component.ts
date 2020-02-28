@@ -28,7 +28,7 @@ export class AppComponent  {
     this.heads = ['first','second','third','paste']
     //this.test = this.test.sort((a, b) => (a- b) );
  //this.test.sort(this.collator.compare)
-    console.log(this.test);
+    // console.log(this.test);
  }
  copyHere(kb: KeyboardEvent, index, name){
 
@@ -36,23 +36,25 @@ export class AppComponent  {
        {
          this.className = name;
     
-  this.copiedComment =(<HTMLInputElement>document.getElementById("input_"+index+"_"+name)).innerHTML;
+  // this.copiedComment =(<HTMLInputElement>document.getElementById("input_"+index+"_"+name)).innerHTML;
 
-  this.columnCopy = this.test.map(x=>x[name])
+        this.columnCopy = this.test.map(x=>x[name])
     }
 
  }
 
 
  pasteHere(event, index, name){
-            this.className = '';
+   this.className = '';
 
-  //  (<HTMLInputElement>document.getElementById("input_"+index+"_"+name)).value = this.copiedComment;
+// for single cell
+//  (<HTMLInputElement>document.getElementById("input_"+index+"_"+name)).value = this.copiedComment;
   this.test.forEach((item, index) => {
     item[name]  = this.columnCopy[index];
   });
+  // for single cell
 // this.test[index].paste = this.copiedComment;
-        event.preventDefault();
+      event.preventDefault();
 
  }
  
