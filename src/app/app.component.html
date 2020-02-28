@@ -7,8 +7,12 @@
   </tr>
   <tr *ngFor="let t of test; let i = index">
    
-    <td *ngFor="let h of heads">
-      <input [(ngModel)]="t[h]" id="input_{{i}}_{{h}}"(keydown)="copyHere($event, i,h)"   (keydown.shift.v)="pasteHere($event, i,h)"
+    <td *ngFor="let h of heads" [ngClass]="{'columnCopied':h === className}">
+      <div #ce [innerHTML]="t[h]" id="input_{{i}}_{{h}}" 
+      (keydown.shift.c)="copyHere($event,i,h)" (keydown.shift.v)="pasteHere($event, i,h)" tabindex="0" *ngIf="h != 'paste'"
+></div>
+<input  [(ngModel)]="t[h]" id="input_{{i}}_{{h}}"
+        (keydown.shift.v)="pasteHere($event, i,h)" (keydown.shift.c)="copyHere($event,i,h)" tabindex="0" *ngIf="h == 'paste'"
 >
 
       </td>

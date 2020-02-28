@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,HostListener,ViewChildren,QueryList,ElementRef } from '@angular/core';
 
 @Component({
   selector: 'my-app',
@@ -10,7 +10,11 @@ export class AppComponent  {
   test: any = [];
   collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
   heads: any = [];
+  columnCopy: any = [];
   copiedComment: string;
+    @ViewChildren('ce') ces:QueryList<ElementRef>;
+    className: string;
+ initialIndex = 0;
   constructor(){
     this.test = [
       {first: 'FteComment1',second:'Consultant1',third:'CopyComment1',paste:''},
@@ -27,13 +31,29 @@ export class AppComponent  {
     console.log(this.test);
  }
  copyHere(kb: KeyboardEvent, index, name){
-       if (kb.shiftKey && kb.keyCode == 67) {
-  this.copiedComment =(<HTMLInputElement>document.getElementById("input_"+index+"_"+name)).value
-  
+
+       if (kb.shiftKey && kb.keyCode == 67) 
+       {
+         this.className = name;
+    
+  this.copiedComment =(<HTMLInputElement>document.getElementById("input_"+index+"_"+name)).innerHTML;
+
+  this.columnCopy = this.test.map(x=>x[name])
     }
 
  }
- pasteHere(kb: KeyboardEvent, index, name){
-   (<HTMLInputElement>document.getElementById("input_"+index+"_"+name)).value = this.copiedComment;
+
+
+ pasteHere(event, index, name){
+            this.className = '';
+
+  //  (<HTMLInputElement>document.getElementById("input_"+index+"_"+name)).value = this.copiedComment;
+  this.test.forEach((item, index) => {
+    item[name]  = this.columnCopy[index];
+  });
+// this.test[index].paste = this.copiedComment;
+        event.preventDefault();
+
  }
+ 
 }
