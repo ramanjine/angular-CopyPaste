@@ -9,7 +9,9 @@ td, th {
   text-align: left;
   padding: 8px;
 }
-
+.columnCopied{
+  background: red;
+}
 tr:nth-child(even) {
   background-color: #dddddd;
 }
