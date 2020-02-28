@@ -1,0 +1,19 @@
+<h2>HTML Table</h2>
+
+<table>
+  <tr>
+    <th *ngFor="let h of heads">{{h}}</th>
+
+  </tr>
+  <tr *ngFor="let t of test; let i = index">
+   
+    <td *ngFor="let h of heads">
+      <input [(ngModel)]="t[h]" id="input_{{i}}_{{h}}"(keydown)="copyHere($event, i,h)"   (keydown.shift.v)="pasteHere($event, i,h)"
+>
+
+      </td>
+  
+    
+  </tr>
+  
+</table>
